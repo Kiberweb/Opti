@@ -17,7 +17,7 @@ class FeedBackFactory extends Factory
     public function definition(): array
     {
         return [
-            'full_name' => $this->faker->firstName($gender = null|'male'|'female') . ' ' . $this->faker->lastName(),
+            'full_name' => $this->faker->firstName($gender = 'male'|'female') . ' ' . $this->faker->lastName(),
             'phone' => $this->faker->phoneNumber(),
             'city_id' => $this->faker->biasedNumberBetween(1, 27),
             'feedback' => $this->faker->sentence(255),

@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
         FeedBack::factory(7)->create();
         User::factory(3)->create();
 
+        $this->call([
+            CitySeeder::class,
+        ]);
+
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

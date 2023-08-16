@@ -22,7 +22,7 @@ class StoreCityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'city' => 'require|string',
+            'city' => 'required|string',
             'visible' => 'boolean|nullable',
         ];
     }

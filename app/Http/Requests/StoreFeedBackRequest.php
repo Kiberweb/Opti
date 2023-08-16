@@ -22,10 +22,10 @@ class StoreFeedBackRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name' => 'require|string|min:3',
-            'phone' => 'require|numeric|max:18',
-            'city_id' => 'require|exists:cities,id',
-            'feedback' => 'require|string|min:7',
+            'full_name' => 'required|string|min:3',
+            'phone' => 'required|numeric',
+            'city_id' => 'required|exists:cities,id',
+            'feedback' => 'required|string|min:7',
         ];
     }
 }

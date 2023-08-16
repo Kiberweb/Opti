@@ -22,7 +22,7 @@ class UpdateFeedBackRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'require|exists:feedbacks,id',
+            'id' => 'required|exists:feedbacks,id',
             'full_name' => 'string|min:3',
             'phone' => 'numeric|max:18',
             'city_id' => 'exists:cities,id',
