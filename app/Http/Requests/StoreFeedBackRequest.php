@@ -11,7 +11,7 @@ class StoreFeedBackRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreFeedBackRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'full_name' => 'require|string|min:3',
+            'phone' => 'require|numeric|max:18',
+            'city_id' => 'require|exists:cities,id',
+            'feedback' => 'require|string|min:7',
         ];
     }
 }
