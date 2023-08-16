@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->string('city')->nullable(false)->comment('City name');
+            $table->string('city', 27)->nullable(false)->comment('City name');
             $table->boolean('visible')->default(true)->comment('show hide city.');
             $table->timestamps();
         });
