@@ -5,55 +5,72 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFeedBackRequest;
 use App\Http\Requests\UpdateFeedBackRequest;
 use App\Models\FeedBack;
+use App\Models\City;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+use App\Services\MailService;
+use Illuminate\Support\Facades\Redirect;
+
 
 class FeedBackController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    private MailService $_mainNotification;
+
+    public function __construct(MailService $mailService)
     {
-        //
+        $this->_mainNotification = $mailService;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      */
-    public function create()
+    public function index(): View
     {
-        //
+        try {
+            return view('components.feedback')
+                ->with('cities', City::all());
+        } catch (\Throwable $e) {
+            throw new \Exception('Error render feedback form ' . $e->getMessage());
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFeedBackRequest $request)
+    public function store(StoreFeedBackRequest $request): RedirectResponse
     {
-        //
+        try {
+            $feedback = new FeedBack();
+
+            $feedback->fill($request->validated())
+                ->save();
+
+            $this->_mainNotification->mailNotification();
+
+            return Redirect::route('feedback.index')
+                ->with('success', 'Відгук доданий дякуємо!');
+
+        } catch (\Throwable $e) {
+            throw new \Exception('Error feedback wos not created ' . $e->getMessage());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(FeedBack $feedBack)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(FeedBack $feedBack)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFeedBackRequest $request, FeedBack $feedBack)
+    public function update(UpdateFeedBackRequest $request, FeedBack $feedBack): RedirectResponse
     {
-        //
+        try {
+            $feedBack
+                ->fill($request->validated())
+                ->updateOrFail();
+
+            return Redirect::route('feedback.index')
+                ->with('success', 'Відгук доданий дякуємо!');
+        } catch (\Throwable $e) {
+            throw new \Exception('Error feedback was not update ' . $e->getMessage());
+        }
     }
 
     /**
@@ -61,6 +78,13 @@ class FeedBackController extends Controller
      */
     public function destroy(FeedBack $feedBack)
     {
-        //
+        try {
+            $feedBack->delete();
+
+            return Redirect::route('feedback.index')
+                ->with('success', 'Відгук доданий дякуємо!');
+        } catch (\Exception $e) {
+            throw new \Exception('Error feedback was not delete ' . $e->getMessage());
+        }
     }
 }
