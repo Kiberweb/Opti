@@ -35,6 +35,7 @@ class CitySeeder extends Seeder
         'Ужгород',
         'Херсон',
         'Черкаси',
+        'Бровари',
     ];
     /**
      * Run the database seeds.
