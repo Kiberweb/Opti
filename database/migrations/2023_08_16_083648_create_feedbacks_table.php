@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('feedbacks', function (Blueprint $table) {
+        Schema::create('feed_backs', function (Blueprint $table) {
             $table->id();
             $table->string('full_name', 27)->nullable(false)->comment('full name person');
-            $table->string('phone', 18)->nullable(false)->comment('phone number');
-            $table->foreignId('city_id')->comment('city title')->constrained()->onDelete('cascade');
+            $table->string('phone', 25)->nullable(false)->comment('phone number');
+            $table->foreignId('city_id')->comment('city title');
             $table->text('feedback')->nullable(false)->comment('feedback client');
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('feedbacks');
+        Schema::dropIfExists('feed_backs');
     }
 };
