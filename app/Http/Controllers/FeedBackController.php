@@ -45,7 +45,7 @@ class FeedBackController extends Controller
             $feedback->fill($request->validated())
                 ->save();
 
-            $this->_mainNotification->mailNotification();
+            $this->_mainNotification->mailNotification($feedback);
 
             return Redirect::route('feedback.index')
                 ->with('success', 'Відгук доданий дякуємо!');
