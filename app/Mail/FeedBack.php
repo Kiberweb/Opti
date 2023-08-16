@@ -50,6 +50,12 @@ class FeedBack extends Mailable
     {
         return new Content(
             view: 'mail.feedback',
+            with: [
+                'fullName' => $this->_feedback->full,
+                'phone' => $this->_feedback->phone,
+                'city' => $this->_feedback->city,
+                'feedback' => $this->_feedback->feedback,
+            ],
         );
     }
 
