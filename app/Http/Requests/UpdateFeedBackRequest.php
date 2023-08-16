@@ -11,7 +11,7 @@ class UpdateFeedBackRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateFeedBackRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id' => 'require|exists:feedbacks,id',
+            'full_name' => 'string|min:3',
+            'phone' => 'numeric|max:18',
+            'city_id' => 'exists:cities,id',
+            'feedback' => 'string|min:7',
         ];
     }
 }
