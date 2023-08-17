@@ -13,15 +13,22 @@ use Illuminate\Support\Facades\Redirect;
 
 class FeedBackController extends Controller
 {
+    /**
+     * @var MailService
+     */
     private MailService $_mainNotification;
 
+    /**
+     * @param MailService $mailService
+     */
     public function __construct(MailService $mailService)
     {
         $this->_mainNotification = $mailService;
     }
 
     /**
-     * Display a listing of the resource.
+     * @return View
+     * @throws \Exception
      */
     public function index(): View
     {
@@ -34,7 +41,9 @@ class FeedBackController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @param StoreFeedBackRequest $request
+     * @return RedirectResponse
+     * @throws \Exception
      */
     public function store(StoreFeedBackRequest $request): RedirectResponse
     {

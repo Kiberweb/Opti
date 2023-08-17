@@ -19,6 +19,7 @@ class FeedBackResource extends JsonResource
             'fullName' => $this->full_name,
             'phone' => $this->phone,
             'city' => $this->city->city,
+            'feedback' => $this->feedback,
             'created' => $this->created_at->toDateTimeString(),
             'updated' => $this->updated_at->toDateTimeString(),
         ];

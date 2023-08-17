@@ -16,7 +16,9 @@ use Inertia\Inertia;
 class FeedBackListController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @param Request $request
+     * @return \Inertia\Response
+     * @throws \Exception
      */
     public function index(Request $request)
     {
@@ -38,7 +40,9 @@ class FeedBackListController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @param StoreFeedBackRequest $request
+     * @return RedirectResponse
+     * @throws \Exception
      */
     public function store(StoreFeedBackRequest $request): RedirectResponse
     {
@@ -58,7 +62,10 @@ class FeedBackListController extends Controller
 
 
     /**
-     * Update the specified resource in storage.
+     * @param UpdateFeedBackRequest $request
+     * @param FeedBack $feedback
+     * @return RedirectResponse
+     * @throws \Exception
      */
     public function update(UpdateFeedBackRequest $request, FeedBack $feedback): RedirectResponse
     {
@@ -75,7 +82,9 @@ class FeedBackListController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @param FeedBack $feedback
+     * @return RedirectResponse
+     * @throws \Exception
      */
     public function destroy(FeedBack $feedback)
     {

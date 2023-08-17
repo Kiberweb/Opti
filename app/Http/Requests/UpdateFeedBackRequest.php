@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class UpdateFeedBackRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * @return bool
      */
     public function authorize(): bool
     {
@@ -24,8 +24,8 @@ class UpdateFeedBackRequest extends FormRequest
         return [
             'id' => 'required|exists:feedbacks,id',
             'full_name' => 'string|min:3',
-            'phone' => 'numeric|max:18',
-            'city_id' => 'exists:cities,id',
+            'phone' => 'numeric|max:25',
+            'city' => 'string',
             'feedback' => 'string|min:7',
         ];
     }
