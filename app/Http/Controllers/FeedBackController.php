@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFeedBackRequest;
-use App\Http\Requests\UpdateFeedBackRequest;
 use App\Models\FeedBack;
 use App\Models\City;
 use Illuminate\Http\RedirectResponse;
@@ -52,39 +51,6 @@ class FeedBackController extends Controller
 
         } catch (\Throwable $e) {
             throw new \Exception('Error feedback wos not created ' . $e->getMessage());
-        }
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateFeedBackRequest $request, FeedBack $feedBack): RedirectResponse
-    {
-        try {
-            $feedBack
-                ->fill($request->validated())
-                ->updateOrFail();
-
-            return Redirect::route('feedback.index')
-                ->with('success', 'Відгук доданий дякуємо!');
-        } catch (\Throwable $e) {
-            throw new \Exception('Error feedback was not update ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(FeedBack $feedBack)
-    {
-        try {
-            $feedBack->delete();
-
-            return Redirect::route('feedback.index')
-                ->with('success', 'Відгук доданий дякуємо!');
-        } catch (\Exception $e) {
-            throw new \Exception('Error feedback was not delete ' . $e->getMessage());
         }
     }
 }
