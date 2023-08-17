@@ -98,6 +98,15 @@
     .hidden {
         display: none;
     }
+    label[for=feedback] {
+        position: relative;
+    }
+    #feedback-length {
+        color: #a1a0a0;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
 </style>
 @endsection
 
@@ -110,21 +119,21 @@
     @csrf
     <div>
         <label for="full_name" >П.І.Б:</label>
-        <input data-type="string" data-validated="0" id="full_name" name="full_name" required type="text" maxlength="27" value="{{ old('full_name') }}"/>
+        <input data-type="string" data-validated="0" id="full_name" name="full_name" required type="text" maxlength="57" value="{{ old('full_name') }}"/>
         @error('full_name')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
     </div>
     <div>
-        <label for="full_name">Телефон:</label>
-        <input data-type="phone" data-validated="0" name="phone" type="text" required value="{{ old('phone') }}" maxlength="25"/>
+        <label for="phone">Телефон:</label>
+        <input data-type="phone" data-mask="+38(000)-(000)-(00)-(00)" data-validated="0" id="phone" placeholder="+38(099)-(111)-(22)-(22)" name="phone" type="text" required value="{{ old('phone') }}" maxlength="25"/>
         @error('phone')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
     </div>
     <div>
-        <label for="full_name" >Місто:</label>
-        <select data-type="number" data-validated="0" name="city_id" required value="{{ old('city_id') }}">
+        <label for="city_id" >Місто:</label>
+        <select data-type="number" data-validated="0" id="city_id" name="city_id" required value="{{ old('city_id') }}">
             <option value="0"></option>
             @foreach($cities as $city)
                 @if(old('city_id') == $city->id)
@@ -139,8 +148,10 @@
         @enderror
     </div>
     <div>
-        <label for="feedback" >Відгук:</label>
-        <textarea data-type="string" data-value="1" rows="5" data-validated="0" id="feedback" name="feedback" required value="{{ old('feedback') }}"></textarea>
+        <label for="feedback" >Відгук:<span id="feedback-length">Символів: <span>0</span></span></label>
+        <textarea data-type="string" data-value="1" rows="5" data-validated="0" id="feedback" name="feedback" required value="{{ old('feedback') }}">
+            {{ old('feedback') }}
+        </textarea>
         @error('feedback')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
@@ -156,23 +167,51 @@
     <script type="text/javascript">
         // +38-(099)-(222)-(22)-(22)
         (function(main) {
+            let fullName = document.getElementById('full_name');
+            let phone = document.getElementById('phone');
+            let city = document.getElementById('city_id');
+            let feedback = document.getElementById('feedback');
+            let feedbackLength = document.getElementById('feedback-length');
             let btnReset = document.querySelector('input[name=btn-reset]');
             let formFeedback = document.querySelector('form#form-feedback');
             let toast = document.querySelector('.toast');
 
+            // add Event validation
+
+
+
             btnReset.onclick = function() {
                 formFeedback.reset();
+            }
+            // full name
+            fullName.onkeydown = function (e) {
+                const fullName = /[a-zA-Zа-яА-ЯІіЄєЇїґҐ\s]/mi;
+
+                console.log(e);
+
+                if (!fullName.test(e.key)) {
+                    return false;
+                }
             }
 
             formFeedback.onsubmit = function () {
                 // alert('dkfjdkjf');
                 // return false;
             }
+            // full name
 
-            setTimeout(function() {
-                toast.classList.add('hidden');
-            }, 2000);
+            // size feedback
+            feedback.onkeydown = function () {
+                feedbackLength.querySelector('span').innerText = this.value.length;
+            }
+
+            if (toast) {
+                setTimeout(function() {
+                    toast.classList.add('hidden');
+                }, 2000);
+            }
         })(window);
+        // //'phone' => 'required|regex:/^\+38[\-\(\)\d]+/im|min:18',
     </script>
 @endsection
 
