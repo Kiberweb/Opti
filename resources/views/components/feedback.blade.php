@@ -187,15 +187,12 @@
             fullName.onkeydown = function (e) {
                 const fullName = /[a-zA-Zа-яА-ЯІіЄєЇїґҐ\s]/mi;
 
-                console.log(e);
-
                 if (!fullName.test(e.key)) {
                     return false;
                 }
             }
 
             formFeedback.onsubmit = function () {
-                // alert('dkfjdkjf');
                 // return false;
             }
             // full name
