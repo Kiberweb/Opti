@@ -6,3 +6,4 @@
 3) php artisan migrate --seed
 4) php artisan serve
 5) localhost:8000
+<div>Пароль для всіх демо користувачів <b><u>password</u></b></div>
