@@ -176,7 +176,7 @@
                                     </td>
                                     <td v-for="name in collum.keys" :key="name + '_' + item.id" class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white ">
                                         <template v-if="name !== 'visible'">
-                                            {{ item[name] }}
+                                            <span :name="name">{{ item[name] }}</span>
                                         </template>
                                         <template v-else>
                                             <slot name="visible" :visible="item">
