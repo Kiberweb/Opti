@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\FeedBackListController;
 use App\Http\Controllers\FeedBackController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -23,12 +24,16 @@ Route::get('/', function () {
 
 Route::get('/feedback', [FeedBackController::class, 'index'])->name('feedback.index');
 Route::post('/feedback', [FeedBackController::class, 'store'])->name('feedback.store');
-//Route::put('/feedback/{feedBack}', [FeedBackController::class, 'update'])->name('feedback.update');
-//Route::delete('/feedback/{feedBack}', [FeedBackController::class, 'destroy'])->name('feedback.destroy');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'dashboard'], function() {
+    Route::get('/dashboard', function() {
+        Redirect::route('feedback-list.index');
+    })->name('dashboard');
+
+    Route::get('/feedback-list', [FeedBackListController::class, 'index'])->name('feedback-list.index');
+    Route::put('/feedback-list/{feedback}', [FeedBackListController::class, 'update'])->name('feedback-list.update');
+    Route::delete('/feedback-list/{feedback}', [FeedBackListController::class, 'destroy'])->name('feedback-list.destroy');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
