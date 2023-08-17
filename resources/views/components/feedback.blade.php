@@ -192,6 +192,15 @@
                 }
             }
 
+            // phone
+            phone.onkeydown = function (e) {
+                const fullName = /[0-9\(\-\)\+]/mi;
+
+                if (!fullName.test(e.key)) {
+                    return false;
+                }
+            }
+
             formFeedback.onsubmit = function () {
                 // return false;
             }
