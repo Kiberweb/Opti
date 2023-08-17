@@ -30,10 +30,10 @@ class City extends Model
      * @param string $city
      * @return int
      */
-    public function getId(string $city): int
+    static function getId(string $city): int
     {
         try {
-            $city = FeedBack::where('city', $city)->first();
+            $city = City::where('city', $city)->first();
 
             return $city->id;
         } catch (\Exception $e) {
