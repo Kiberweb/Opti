@@ -10,6 +10,9 @@ class FeedBack extends Model
 {
     use HasFactory;
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'full_name',
         'phone',
@@ -17,6 +20,9 @@ class FeedBack extends Model
         'feedback',
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
