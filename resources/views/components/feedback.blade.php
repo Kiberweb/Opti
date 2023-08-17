@@ -164,6 +164,7 @@
 @endsection
 
 @section('footer')
+    <script src="https://unpkg.com/imask"></script>
     <script type="text/javascript">
         // +38-(099)-(222)-(22)-(22)
         (function(main) {
@@ -178,8 +179,6 @@
 
             // add Event validation
 
-
-
             btnReset.onclick = function() {
                 formFeedback.reset();
             }
@@ -192,19 +191,24 @@
                 }
             }
 
-            // oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+            IMask(
+                phone,
+                {
+                    mask: '+{38}(000)-(000)-(00)-(00)'
+                }
+            );
 
-            // phone
-            phone.oninput = function (e) {
-                const phone = /[^0-9\(\-\)\+]/g;
-
-                this.value = this.value.replace(phone, '');
-
-            }
-
-            formFeedback.onsubmit = function () {
-                // return false;
-            }
+            // // phone
+            // phone.oninput = function (e) {
+            //     const phone = /[^0-9\(\-\)\+]/g;
+            //
+            //     this.value = this.value.replace(phone, '');
+            //
+            // }
+            //
+            // formFeedback.onsubmit = function () {
+            //     // return false;
+            // }
             // full name
 
             // size feedback
@@ -218,7 +222,6 @@
                 }, 2000);
             }
         })(window);
-        // //'phone' => 'required|regex:/^\+38[\-\(\)\d]+/im|min:18',
     </script>
 @endsection
 
