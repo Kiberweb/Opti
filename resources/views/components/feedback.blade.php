@@ -192,13 +192,14 @@
                 }
             }
 
-            // phone
-            phone.onkeydown = function (e) {
-                const fullName = /[0-9\(\-\)\+]/mi;
+            // oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
 
-                if (!fullName.test(e.key)) {
-                    return false;
-                }
+            // phone
+            phone.oninput = function (e) {
+                const phone = /[^0-9\(\-\)\+]/g;
+
+                this.value = this.value.replace(phone, '');
+
             }
 
             formFeedback.onsubmit = function () {
