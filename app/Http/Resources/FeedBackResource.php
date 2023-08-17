@@ -14,6 +14,13 @@ class FeedBackResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'fullName' => $this->full_name,
+            'phone' => $this->phone,
+            'city' => $this->city->city,
+            'created' => $this->created_at->toDateTimeString(),
+            'updated' => $this->updated_at->toDateTimeString(),
+        ];
     }
 }
