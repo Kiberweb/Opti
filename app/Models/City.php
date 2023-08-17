@@ -32,6 +32,12 @@ class City extends Model
      */
     public function getId(string $city): int
     {
-        return FeedBack::where('city', $city);
+        try {
+            $city = FeedBack::where('city', $city)->first();
+            
+            return $city->id;
+        } catch (\Exception $e) {
+            throw new \Exception('Error not found city ' . $e->getMessage());
+        }
     }
 }
