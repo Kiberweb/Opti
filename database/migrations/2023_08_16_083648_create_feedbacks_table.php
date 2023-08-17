@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('feed_backs', function (Blueprint $table) {
             $table->id();
-            $table->string('full_name', 27)->nullable(false)->comment('full name person');
+            $table->string('full_name', 57)->nullable(false)->comment('full name person');
             $table->string('phone', 25)->nullable(false)->comment('phone number');
             $table->foreignId('city_id')->comment('city title');
             $table->text('feedback')->nullable(false)->comment('feedback client');
